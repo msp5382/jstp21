@@ -7,13 +7,13 @@ anto::anto(String key,String thing)
 {
   URL="http://api.anto.io/channel/set/"+key+"/"+thing+"/";
 }
-void anto::send(String channel,float data)
+bool anto::send(String channel,float data)
 {
 if ((WiFi.status() == WL_CONNECTED)) {
 
     HTTPClient http;
 
-    http.begin(URL + "channel/" + String(data)); 
+    http.begin(URL + channel+"/" + String(data)); 
     int httpCode = http.GET();
 
     if (httpCode > 0) {
@@ -21,6 +21,7 @@ if ((WiFi.status() == WL_CONNECTED)) {
         String payload = http.getString();
         //Serial.println(httpCode);
         //Serial.println(payload);
+        return true;
       }
 
     else {
@@ -30,4 +31,5 @@ if ((WiFi.status() == WL_CONNECTED)) {
     http.end();
   }
 
+return false;
 }

@@ -13,5 +13,6 @@ class anto
     void send(String channel,float data);
   private:
     String URL;
+    enum ERRC = {ERR_NOT_CONNECT="WiFi not connect",SERVER_FALSE="Server not working...",CON_ERR="Error on connection"};
 };
 #endif
