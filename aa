@@ -1,0 +1,117 @@
+/* create a hardware timer */
+hw_timer_t * timer = NULL;
+hw_timer_t * timer2 = NULL;
+volatile bool FLAG1,FLAG2,FLAG3,FLAG4,FLAG5,FLAG6,FLAG7,FLAG8,FLAG9,FLAG10,FLAG11,FLAG12,FLAG13=false;
+volatile int count=0;
+
+volatile int interval1 = 200;
+volatile int interval2 = 300;
+
+void IRAM_ATTR setFLAG(){
+  if(count==interval1){
+    Serial.println("FLAG1 SET at time : "+String(millis()));
+    FLAG1=true;
+    }
+  if(count==interval2){
+    Serial.println("FLAG2 SET at time : "+String(millis()));
+    FLAG2=true;
+    }
+  count=count+1;
+}
+
+void IRAM_ATTR readFLAG(){
+  if(FLAG1==true){
+    Serial.println("Doing FLAG1");
+    Serial.println("Close FLAG1 at "+String(millis()));
+    FLAG1=false;
+    }
+  if(FLAG2==true){
+    Serial.println("Doing FLAG2");
+    Serial.println("Close FLAG2 at "+String(millis()));
+    FLAG2=false;
+    }
+  if(FLAG3==true){
+    Serial.println("Doing FLAG3");
+    Serial.println("Close FLAG3 at "+String(millis()));
+    FLAG3=false;
+    }
+  if(FLAG4==true){
+    Serial.println("Doing FLAG4");
+    Serial.println("Close FLAG4 at "+String(millis()));
+    FLAG4=false;
+    }
+  if(FLAG5==true){
+    Serial.println("Doing FLAG5");
+    Serial.println("Close FLAG5 at "+String(millis()));
+    FLAG5=false;
+    }
+  if(FLAG6==true){
+    Serial.println("Doing FLAG6");
+    Serial.println("Close FLAG6 at "+String(millis()));
+    FLAG6=false;
+    }
+  if(FLAG7==true){
+    Serial.println("Doing FLAG7");
+    Serial.println("Close FLAG7 at "+String(millis()));
+    FLAG7=false;
+    }
+  if(FLAG8==true){
+    Serial.println("Doing FLAG8");
+    Serial.println("Close FLAG8 at "+String(millis()));
+    FLAG8=false;
+    }
+  if(FLAG9==true){
+    Serial.println("Doing FLAG9");
+    Serial.println("Close FLAG9 at "+String(millis()));
+    FLAG9=false;
+    }
+  if(FLAG10==true){
+    Serial.println("Doing FLAG10");
+    Serial.println("Close FLAG10 at "+String(millis()));
+    FLAG10=false;
+    }
+  if(FLAG11==true){
+    Serial.println("Doing FLAG11");
+    Serial.println("Close FLAG11 at "+String(millis()));
+    FLAG11=false;
+    }
+  if(FLAG12==true){
+    Serial.println("Doing FLAG12");
+    Serial.println("Close FLAG12 at "+String(millis()));
+    FLAG12=false;
+    }
+  if(FLAG13==true){
+    Serial.println("Doing FLAG13");
+    Serial.println("Close FLAG13 at "+String(millis()));
+    FLAG13=false;
+    }
+}
+
+void setup() {
+  Serial.begin(115200);
+  /* Use 1st timer of 4 */
+  /* 1 tick take 1/(80MHZ/80) = 1us so we set divider 80 and count up */
+  timer = timerBegin(0, 80, true);
+  timer2 = timerBegin(1, 80, true);
+
+  /* Attach onTimer function to our timer */
+  timerAttachInterrupt(timer, &setFLAG, true);
+  timerAttachInterrupt(timer2, &readFLAG, true);
+
+  /* Set alarm to call onTimer function every second 1 tick is 1us
+  => 1 second is 1000000us */
+  /* Repeat the alarm (third parameter) */
+  timerAlarmWrite(timer, 1000, true);
+  timerAlarmWrite(timer2, 1000, true);
+
+  /* Start an alarm */
+  timerAlarmEnable(timer);
+  timerAlarmEnable(timer2);
+
+  timerStart(timer);
+  timerStart(timer2);
+  
+  Serial.println("start timer");
+}
+
+void loop() {}

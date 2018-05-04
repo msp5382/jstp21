@@ -8,7 +8,7 @@ String key = "Hh2yVDGHNIQUZwjOVvI4mRGYeBgKQTXk6cVrJayB";
 String thing = "nodepico";
 String channel = "input";
 
-anto anto(key,thing,channel);
+anto anto(key,thing);
 
 void setup() {
 
@@ -26,7 +26,7 @@ void setup() {
 }
 int a = 0;
 void loop() {
- anto.send(a);
+ anto.send(channel,a);
  a=a+1;
  delay(10000);
 }

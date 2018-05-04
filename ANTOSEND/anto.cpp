@@ -3,17 +3,17 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-anto::anto(String key,String thing,String channel)
+anto::anto(String key,String thing)
 {
-  URL="http://api.anto.io/channel/set/"+key+"/"+thing+"/"+channel+"/";
+  URL="http://api.anto.io/channel/set/"+key+"/"+thing+"/";
 }
-void anto::send(int data)
+void anto::send(String channel,int data)
 {
 if ((WiFi.status() == WL_CONNECTED)) {
 
     HTTPClient http;
 
-    http.begin(URL + String(data)); 
+    http.begin(URL + "channel/" + String(data)); 
     int httpCode = http.GET();
 
     if (httpCode > 0) {

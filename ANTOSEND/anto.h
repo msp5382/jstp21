@@ -9,8 +9,8 @@
 class anto
 {
   public:
-    anto(String key,String thing,String channel);
-    void send(int data);
+    anto(String key,String thing);
+    void send(String channel,int data);
   private:
     String URL;
 };
