@@ -7,7 +7,7 @@ anto::anto(String key,String thing)
 {
   URL="http://api.anto.io/channel/set/"+key+"/"+thing+"/";
 }
-void anto::send(String channel,int data)
+void anto::send(String channel,float data)
 {
 if ((WiFi.status() == WL_CONNECTED)) {
 

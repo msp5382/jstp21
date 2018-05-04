@@ -10,7 +10,7 @@ class anto
 {
   public:
     anto(String key,String thing);
-    void send(String channel,int data);
+    void send(String channel,float data);
   private:
     String URL;
 };
